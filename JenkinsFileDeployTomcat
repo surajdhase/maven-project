@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages 
+    {  
+        
+        stage ('Cloning Code') {
+		steps {
+          		git 'https://github.com/prakashk0301/maven-project'
+         	}
+	}
+	
+        stage ('Install My Project') {
+
+            steps {
+                withMaven(jdk: 'Local JDK', maven: 'Apache Maven')
+                {
+                    sh 'mvn install'
+                }
+                  }
+                                 
+        }
+	      stage ('Deploy on Tomcat Server') {
+            steps {
+                sshagent(['tomcat']) {
+                  sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.90.106:/usr/share/tomcat/webapps/'
+                }
+                }
+  
+		}
+		}
