@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages 
+    {  
+        
+        stage ('Cloning Code') {
+          git 'https://github.com/prakashk0301/maven-project'
+         }
+    
+    }
+    {
+                            
+        
+        stage ('Complie My Project') {
+
+
+            steps {
+                withMaven(maven : 'LocalMaven')
+                {
+                    sh 'mvn compile'
+                }
+                  }
+                                 
+        }
+		}
+		}
