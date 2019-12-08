@@ -20,7 +20,7 @@ pipeline {
                   }
                                  
         }
-	      stage ('Deploy on Tomcat Server') {
+	stage ('Deploy on Tomcat Server') {
             steps {
                 sshagent(['tomcat']) {
                   sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.90.106:/usr/share/tomcat/webapps/'
@@ -29,3 +29,4 @@ pipeline {
   
 		}
 		}
+	}
