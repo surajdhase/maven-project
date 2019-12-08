@@ -5,20 +5,28 @@ pipeline {
     {  
         
         stage ('Cloning Code') {
-          git 'https://github.com/prakashk0301/maven-project'
-         }
-    
-    }
-    {
-                            
-        
-        stage ('Complie My Project') {
-
+		steps {
+          		git 'https://github.com/prakashk0301/maven-project'
+         	}
+	}
+	
+        stage ('Compile My Project') {
 
             steps {
                 withMaven(jdk: 'Local JDK', maven: 'Apache Maven')
                 {
                     sh 'mvn compile'
+                }
+                  }
+                                 
+        }
+	stage ('Test My Project') {
+
+
+            steps {
+                withMaven(jdk: 'Local JDK', maven: 'Apache Maven')
+                {
+                    sh 'mvn test'
                 }
                   }
                                  
